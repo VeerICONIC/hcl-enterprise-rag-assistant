@@ -25,26 +25,43 @@ class ApiConnectionError(Exception):
 
 
 class ApiClient:
-    def __init__(self, base_url: Optional[str] = None, client: Optional[httpx.Client] = None):
-        self.base_url = (base_url or config.API_BASE_URL).rstrip("/")
-        self._http = client or httpx.Client()
+    def __init__(self, base_url: Optional[str] = None, client: Optional[httpx.Client] = None,
+                 api_key: Optional[str] = None, timeout: Optional[float] = None):
+        self.base_url = config.normalize_url(base_url or config.API_BASE_URL)
+        self._api_key = api_key if api_key is not None else config.API_KEY
+        self._timeout = float(timeout or config.API_TIMEOUT)
+        self._http = client or httpx.Client(follow_redirects=True)
 
-    def _request(self, method: str, path: str, *, timeout: float = 15.0, **kwargs: Any) -> Any:
+    def _connection_hint(self) -> str:
+        if config.is_local_url(self.base_url):
+            if config.running_on_streamlit_cloud():
+                return (" This app is running on Streamlit Cloud, where 'localhost' is the Streamlit server itself, so the API "
+                        "address was never configured. Set API_BASE_URL (your backend's public https URL) in "
+                        "App settings -> Secrets and reboot the app.")
+            return " Is FastAPI running? Start it with: uvicorn app.api.main:app --port 8000"
+        return (" If the backend is hosted on a free tier it may be waking from sleep (this can take up to a minute): "
+                "wait and refresh. Otherwise check that API_BASE_URL is correct and that the backend is running.")
+
+    def _request(self, method: str, path: str, *, timeout: Optional[float] = None, **kwargs: Any) -> Any:
         url = f"{self.base_url}{path}"
+        headers = dict(kwargs.pop("headers", None) or {})
+        if self._api_key:
+            headers["X-API-Key"] = self._api_key
         try:
-            resp = self._http.request(method, url, timeout=timeout, **kwargs)
+            resp = self._http.request(method, url, timeout=timeout or self._timeout, headers=headers, **kwargs)
         except httpx.TimeoutException:
-            raise ApiConnectionError(f"The backend at {self.base_url} did not respond in time.") from None
+            raise ApiConnectionError(f"The backend at {self.base_url} did not respond in time." + self._connection_hint()) from None
         except httpx.HTTPError:
-            raise ApiConnectionError(
-                f"Cannot reach the backend at {self.base_url}. Is FastAPI running "
-                "(uvicorn app.api.main:app --port 8000)?") from None
+            raise ApiConnectionError(f"Cannot reach the backend at {self.base_url}." + self._connection_hint()) from None
         if resp.status_code >= 400:
             try:
                 err = resp.json()["error"]
                 raise ApiError(resp.status_code, str(err.get("code", "error")), str(err.get("message", "")))
             except (ValueError, KeyError, TypeError, AttributeError):
-                raise ApiError(resp.status_code, f"http_{resp.status_code}", resp.text[:300] or "request failed") from None
+                msg = resp.text[:300] or "request failed"
+                if resp.status_code in (502, 503, 504) and "<html" in msg.lower():
+                    msg = "The hosting platform returned an error page (the backend may be starting up or crashed). Try again shortly."
+                raise ApiError(resp.status_code, f"http_{resp.status_code}", msg) from None
         return resp.json()
 
     # ---- endpoints -------------------------------------------------------------

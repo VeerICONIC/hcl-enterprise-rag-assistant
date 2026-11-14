@@ -8,7 +8,7 @@ HCLTech Future Ready AI Engineer Hackathon, Use Case 2: **Enterprise Documentati
 
 Scope boundary from the brief: the assistant answers and cites. It never modifies source documents or enterprise systems.
 
-**Status:** M0 to M6 implemented and offline-tested (431 tests). Live Bedrock works (Titan V2 + Nova Lite via `apac.amazon.nova-lite-v1:0`, `ap-south-1`) and a live evaluation exists; see `docs/PROGRESS.md` for the analysis and the open chunk-size decision. Read `docs/PROGRESS.md` first in every session and update it before ending a session.
+**Status:** M0 to M6 implemented and offline-tested (461 tests). Live Bedrock works (Titan V2 + Nova Lite via `apac.amazon.nova-lite-v1:0`, `ap-south-1`) and a live evaluation exists; see `docs/PROGRESS.md` for the analysis and the open chunk-size decision. Read `docs/PROGRESS.md` first in every session and update it before ending a session.
 
 ## Documentation map
 
@@ -91,3 +91,5 @@ Ingestion notes: `IngestionService` (`app/ingestion/ingestion_service.py`) holds
 - Titan has no native batch call, so use bounded concurrency and retry with backoff on throttling.
 - Nova Lite may require a cross-region inference profile ID (e.g. `us.amazon.nova-lite-v1:0`) depending on region. Make the model ID configurable.
 - Unit tests must not call AWS. Mock the Bedrock clients, and gate any live tests behind an explicit marker.
+
+Deployment notes: the backend (Render, `render.yaml`, `requirements-backend.txt`) and the frontend (Streamlit Cloud, `frontend/requirements.txt`, main file `frontend/app.py`) are deployed separately; see `docs/DEPLOYMENT.md`. The frontend resolves `API_BASE_URL`/`API_KEY` from the environment, then Streamlit secrets, then the local `.env`, and never imports the backend package. An optional `API_KEY` env var on the backend protects every route except `/health` via the `X-API-Key` header.

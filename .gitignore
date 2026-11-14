@@ -33,3 +33,6 @@ Thumbs.db
 # Virtual environments / build
 .venv*/
 *.egg-info/
+
+# Streamlit secrets (use .streamlit/secrets.toml.example as a template)
+.streamlit/secrets.toml

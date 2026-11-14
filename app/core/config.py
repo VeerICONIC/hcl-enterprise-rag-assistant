@@ -100,10 +100,23 @@ class Settings(BaseSettings):
 
     reports_dir: str = Field("reports", description="Directory holding evaluation output (eval_results.json).")
 
+    # --- Hosting -----------------------------------------------------------
+    api_key: Optional[str] = Field(
+        None, repr=False,
+        description="Optional shared secret. When set, every route except /health requires the header X-API-Key.",
+    )
+
     # --- Frontend ----------------------------------------------------------
     api_base_url: str = Field(
         "http://localhost:8000", description="Backend base URL used by the Streamlit frontend."
     )
+
+    @field_validator("api_key", mode="before")
+    @classmethod
+    def _blank_api_key_is_none(cls, v):
+        if isinstance(v, str) and not v.strip():
+            return None
+        return v.strip() if isinstance(v, str) else v
 
     @field_validator("aws_profile", mode="before")
     @classmethod

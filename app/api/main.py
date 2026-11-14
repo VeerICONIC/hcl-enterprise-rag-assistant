@@ -6,6 +6,7 @@ DELETE /documents/{doc_id}. Errors use ``{"error": {"code", "message"}}``.
 
 from __future__ import annotations
 
+import hmac
 import json
 import logging
 from pathlib import Path
@@ -78,6 +79,19 @@ def create_app(container: Optional[Container] = None) -> FastAPI:
     async def _unhandled(_: Request, exc: Exception):
         logger.exception("unhandled error")
         return _error(500, "internal_error", "internal server error")
+
+    # -- optional shared-secret protection (set API_KEY to enable) -------------
+    @app.middleware("http")
+    async def _require_api_key(request: Request, call_next):
+        try:
+            key = request.app.state.container.settings.api_key
+        except ConfigurationError as exc:
+            return _error(500, "configuration_error", str(exc))
+        if key and request.url.path != "/health" and request.method != "OPTIONS":
+            supplied = request.headers.get("x-api-key", "")
+            if not hmac.compare_digest(supplied.encode("utf-8"), key.encode("utf-8")):
+                return _error(401, "unauthorized", "Missing or invalid API key (send it in the X-API-Key header).")
+        return await call_next(request)
 
     # -- routes --------------------------------------------------------------
     @app.get("/health")

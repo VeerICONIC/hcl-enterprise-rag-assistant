@@ -1,0 +1,49 @@
+# Render Blueprint for the FastAPI BACKEND only (the Streamlit frontend lives on Streamlit Community Cloud).
+# Nothing here is applied automatically: Render creates resources only when you connect this repository
+# (Dashboard -> New -> Blueprint) and confirm. See docs/DEPLOYMENT.md.
+#
+# A persistent disk is REQUIRED to keep ChromaDB (uploaded documents) across restarts and deploys, and Render only
+# offers disks on paid instance types, so this blueprint uses a paid plan. On the free plan the filesystem is wiped
+# on every deploy/restart/spin-down and all uploaded documents are lost.
+services:
+  - type: web
+    name: hcl-docqa-api
+    runtime: python
+    plan: starter            # paid; the minimum that supports a persistent disk
+    region: singapore        # closest Render region to AWS ap-south-1 (Mumbai)
+    autoDeploy: false        # deploy on demand so a push cannot restart/replace the service unexpectedly
+    buildCommand: pip install --upgrade pip && pip install -r requirements-backend.txt
+    startCommand: uvicorn app.api.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    disk:
+      name: chroma-data
+      mountPath: /var/data   # CHROMA_PATH below must live under this path
+      sizeGB: 1
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7        # use any 3.12.x Render lists if this exact patch version is not available
+      # --- AWS: region and model IDs (not secrets) ---
+      - key: AWS_REGION
+        value: ap-south-1
+      - key: BEDROCK_EMBED_MODEL_ID
+        value: amazon.titan-embed-text-v2:0
+      - key: BEDROCK_EMBED_DIM
+        value: "1024"
+      - key: BEDROCK_LLM_MODEL_ID
+        value: apac.amazon.nova-lite-v1:0
+      # --- storage ---
+      - key: CHROMA_PATH
+        value: /var/data/chroma
+      - key: CHROMA_COLLECTION
+        value: enterprise_docs
+      - key: REPORTS_DIR
+        value: reports
+      # --- secrets: enter these in the Render dashboard (sync: false keeps them out of this file) ---
+      # AWS_PROFILE must NOT be set on Render (profiles exist only on your own machine).
+      - key: AWS_ACCESS_KEY_ID
+        sync: false
+      - key: AWS_SECRET_ACCESS_KEY
+        sync: false
+      # shared secret protecting every route except /health; copy the generated value into the Streamlit secret API_KEY
+      - key: API_KEY
+        generateValue: true

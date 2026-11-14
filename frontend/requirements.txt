@@ -1,0 +1,6 @@
+# Frontend (Streamlit) dependencies. Streamlit Community Cloud installs the requirements file that sits next to the
+# app's main file (frontend/app.py) before falling back to the repository root, so deploying with
+# "Main file path = frontend/app.py" installs only these two packages (not ChromaDB, PyMuPDF, boto3, ...).
+# The frontend talks to the backend over HTTP only and does not import the backend package.
+streamlit>=1.40
+httpx>=0.27

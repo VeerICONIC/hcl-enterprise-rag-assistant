@@ -2,7 +2,7 @@
 
 HCLTech Future Ready AI Engineer Hackathon, use case 2. Upload PDF, HTML, Markdown or TXT documents, ask questions in natural language, and get answers that use **only** the retrieved evidence, with validated citations, visible conflicts between sources, and a clear "not enough evidence" reply when the documents do not support an answer.
 
-> **Status.** 431 automated tests pass offline (Bedrock mocked). The live path has also been verified: Titan Text Embeddings V2 and Nova Lite (`apac.amazon.nova-lite-v1:0`, region `ap-south-1`) succeed in `python scripts/test_bedrock.py --all`, and a full upload, question, citation, conflict and deletion workflow was run against real Bedrock. A live evaluation on 28 labelled questions is in `reports/evaluation_report.md`. Known weak spot: **chunk size** (see [Tuning chunk size](#tuning-chunk-size)).
+> **Status.** 461 automated tests pass offline (Bedrock mocked). The live path has also been verified: Titan Text Embeddings V2 and Nova Lite (`apac.amazon.nova-lite-v1:0`, region `ap-south-1`) succeed in `python scripts/test_bedrock.py --all`, and a full upload, question, citation, conflict and deletion workflow was run against real Bedrock. A live evaluation on 28 labelled questions is in `reports/evaluation_report.md`. Known weak spot: **chunk size** (see [Tuning chunk size](#tuning-chunk-size)).
 
 ## Quick start (Windows 11, two terminals)
 
@@ -121,10 +121,14 @@ curl.exe -X POST http://localhost:8000/query -H "Content-Type: application/json"
 ### Tuning chunk size
 The default `CHUNK_SIZE=1000` merges short unrelated paragraphs of a document with no headings into one chunk, which blurs its embedding. On the synthetic corpus, 400-character chunks gave status accuracy 0.964 and 1 to 2 real failures; the 1000 default gave 0.857 and 4 false "not enough evidence" replies (all from one 5-rule IT policy file). One small synthetic corpus does not prove a better default for your documents. To experiment: set `CHUNK_SIZE=500` and `CHUNK_OVERLAP=75` in `.env`, restart the API, delete and re-upload the documents (the setting only applies at ingestion), and check with `python scripts/run_evaluation.py --live --chunk-size 500 --chunk-overlap 75`.
 
+## Deploying (Render backend + Streamlit Cloud frontend)
+
+The dashboard needs a reachable backend. If a deployed dashboard says **Backend offline**, its `API_BASE_URL` is still `http://localhost:8000` (the Streamlit Cloud server itself). Set `API_BASE_URL` (and `API_KEY`) in Streamlit Cloud -> Secrets, and host the FastAPI backend on a public https URL. Full, step-by-step instructions (Render blueprint `render.yaml`, environment variables, secure AWS credentials, ChromaDB persistence on a disk, testing `/health`, Streamlit secrets) are in **[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)**. Local development is unchanged. Set `API_KEY` on a public backend, otherwise anyone with the URL can upload documents and spend your Bedrock budget.
+
 ## 3. Run the tests
 
 ```powershell
-python -m pytest                                    # 431 offline tests; no AWS, no network
+python -m pytest                                    # 461 offline tests; no AWS, no network
 python -m pytest tests/test_generation.py           # one file
 python -m pytest tests/test_chroma_store.py::test_persists_across_instances   # one test
 ```
@@ -161,7 +165,7 @@ scripts/        start_api.ps1 start_ui.ps1 start_all.ps1 stop_all.ps1, test_bedr
 data/eval/      synthetic corpus + labelled questions + analysis
 reports/        evaluation_report.md, eval_results.json (+ run history, deployed_defaults/)
 docs/           architecture, API contracts, implementation plan, AWS prerequisites, PROGRESS
-tests/          431 offline tests
+tests/          461 offline tests
 ```
 
 ## 6. Known limitations

@@ -3,9 +3,17 @@
 Living document. **Read at the start of every Claude Code session. Update before ending one.** Keep entries short and factual.
 
 ## Current state
-- **Phase:** M0 to M6 implemented **and verified live.** 431 offline tests pass. Live AWS works (Titan V2 + Nova Lite via `apac.amazon.nova-lite-v1:0`, region `ap-south-1`): the smoke test passes, the full upload -> question -> citation -> conflict -> delete workflow was run against real Bedrock, and a live evaluation exists (`reports/evaluation_report.md`).
+- **Phase:** M0 to M6 implemented **and verified live.** 461 offline tests pass. Live AWS works (Titan V2 + Nova Lite via `apac.amazon.nova-lite-v1:0`, region `ap-south-1`): the smoke test passes, the full upload -> question -> citation -> conflict -> delete workflow was run against real Bedrock, and a live evaluation exists (`reports/evaluation_report.md`).
 - **Last updated:** 2026-11-14 (evaluation-analysis session)
 - **Awaiting:** the user's decisions listed under "Decisions needing approval (evaluation-analysis session)"; chiefly the chunk-size default.
+
+## Deployment preparation (2026-11-14, hosting session)
+**Symptom:** the Streamlit Cloud dashboard showed "Backend Offline".
+**Exact cause:** `frontend/config.py` took `API_BASE_URL` from the environment or the backend's settings default (`http://localhost:8000`); the git-ignored `.env` and any env var were absent on Streamlit Cloud, so the app called `localhost:8000` on the Streamlit server itself. Nothing else hardcodes localhost in runtime code.
+**Changes:** `frontend/config.py` rewritten to be independent of the backend package (env var -> Streamlit secrets -> local `.env` -> default; URL normalisation; `API_KEY`, `API_TIMEOUT_SECONDS`, cloud-misconfiguration detection); `frontend/api_client.py` (X-API-Key header, configurable timeout, specific connection/hosting error messages); `frontend/components/sidebar.py` (states the reason when offline); backend `app/api/main.py` + `app/core/config.py` (optional `API_KEY`, all routes except `/health`, constant-time compare, off when unset); new `render.yaml`, `requirements-backend.txt`, `frontend/requirements.txt`, `.streamlit/secrets.toml.example`, `docs/DEPLOYMENT.md`; `.gitignore` (+ `.streamlit/secrets.toml`); `.env.example` (+ `API_KEY`). Root `requirements*.txt` and the local launch scripts are unchanged, so Windows development is unaffected (re-checked). No API contract changed (the API-key header is additive and optional).
+**Verified locally:** clean virtualenv from `requirements-backend.txt` only; the exact Render start command with `$PORT` and `0.0.0.0` (health 200 without key; 401 without/with a wrong key; 200 with the key; store created on a disk-style path; clear 502 without AWS credentials); real `st.secrets` resolution in a subprocess; local two-script/launcher run. **Tests: 461 passed** (30 new in `tests/test_deployment.py`).
+**NOT verified / not done:** nothing was deployed or created on Render or Streamlit Cloud; the Render build, the persistent disk, Bedrock access with the IAM user's keys from Render, and the Streamlit Cloud install and secrets are untested. Deployment is not complete until `/health` answers on the real Render URL and the dashboard shows "Backend online".
+**Decisions needing approval:** (1) `render.yaml` uses a paid plan (`starter`) because Render persistent disks need one; (2) the optional `API_KEY` protection (additive); (3) the hosted backend starts empty and documents must be re-uploaded (the local `data/chroma` is not migrated); (4) region Singapore as the closest Render region to ap-south-1.
 
 ## Evaluation analysis + live verification (2026-11-14, evaluation-analysis session)
 **Context.** The user ran the live smoke test and the first live evaluation (mode live, `apac.amazon.nova-lite-v1:0`, `ap-south-1`; reports/eval_results.json). This session re-confirmed AWS access (`test_bedrock.py --all`: embed PASS, llm PASS), preserved that run unchanged (`reports/*_run1_original.*`), analysed all 15 flagged entries, fixed the real defects, re-ran the live evaluation, and verified the application end to end.
@@ -32,7 +40,7 @@ Living document. **Read at the start of every Claude Code session. Update before
 
 **Windows launchers:** `scripts/start_api.ps1`, `start_ui.ps1`, `start_all.ps1` (optional, `-Hidden`/`-NoBrowser` for testing), `stop_all.ps1`. Bugs found by running them: `localhost` can resolve to IPv6 in PowerShell 5.1 while uvicorn binds IPv4 (the wait loop uses 127.0.0.1); an array parameter passed through `-File` collapses (`-Ports` is a comma string).
 
-**Tests: 431 passed** (`python -m pytest`, about 20 s). New this session: generator fixes, severity/proxy-v2, report endpoint, launch-script parse checks.
+**Tests: 461 passed** (`python -m pytest`, about 20 s). New this session: generator fixes, severity/proxy-v2, report endpoint, launch-script parse checks.
 
 ### Decisions needing approval (evaluation-analysis session)
 1. **Chunk size:** keep `CHUNK_SIZE=1000` or change the default (data suggests ~400-500 for documents made of short unrelated rules; unproven on real documents).

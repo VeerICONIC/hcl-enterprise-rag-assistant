@@ -1,0 +1,14 @@
+# Backend (FastAPI) dependencies for HOSTING, e.g. Render. Not used by local development, which installs
+# requirements-dev.txt (everything, including the frontend and test tools).
+#
+# No streamlit here. No boto3[crt]: a hosted backend authenticates with AWS_ACCESS_KEY_ID /
+# AWS_SECRET_ACCESS_KEY environment variables (or an attached IAM role), which plain boto3 handles.
+pydantic>=2.7,<3
+pydantic-settings>=2.3,<3
+boto3>=1.35
+chromadb>=1.0
+pymupdf>=1.24
+beautifulsoup4>=4.12
+fastapi>=0.115
+uvicorn>=0.30
+python-multipart>=0.0.9

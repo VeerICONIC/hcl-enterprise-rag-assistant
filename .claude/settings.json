@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.env$|secrets\\\\.toml$\")",
+      "Bash(grep -rEn \"AKIA[0-9A-Z]{12,}|aws_secret_access_key *=|BEGIN \\(RSA|PRIVATE\\)\" --include=\"*\" -I .)",
+      "Bash(grep -i \"\\\\.pdf$\")"
+    ]
+  }
+}

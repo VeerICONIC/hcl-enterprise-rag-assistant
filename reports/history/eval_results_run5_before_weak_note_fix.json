@@ -1,0 +1,4197 @@
+{
+  "mode": "live",
+  "timestamp": "2026-11-14T14:58:36+00:00",
+  "embed_model": "amazon.titan-embed-text-v2:0",
+  "llm_model": "apac.amazon.nova-lite-v1:0",
+  "n_questions": 28,
+  "n_documents": 8,
+  "n_chunks": 23,
+  "top_k": 5,
+  "chunking": {
+    "size": 400,
+    "overlap": 60
+  },
+  "retrieval": {
+    "k": 5,
+    "overall": {
+      "recall@5": 1.0,
+      "mrr": 0.9761904761904762,
+      "ndcg@5": 0.9824252263605456,
+      "hit_rate@5": 1.0,
+      "n": 21
+    },
+    "by_category": {
+      "direct": {
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "ndcg@5": 1.0,
+        "hit_rate@5": 1.0,
+        "n": 6
+      },
+      "paraphrase": {
+        "recall@5": 1.0,
+        "mrr": 0.9,
+        "ndcg@5": 0.9261859507142916,
+        "hit_rate@5": 1.0,
+        "n": 5
+      },
+      "multi_document": {
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "ndcg@5": 1.0,
+        "hit_rate@5": 1.0,
+        "n": 3
+      },
+      "conflict": {
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "ndcg@5": 1.0,
+        "hit_rate@5": 1.0,
+        "n": 4
+      },
+      "similar_keywords": {
+        "recall@5": 1.0,
+        "mrr": 1.0,
+        "ndcg@5": 1.0,
+        "hit_rate@5": 1.0,
+        "n": 3
+      }
+    },
+    "conflict_detection": {
+      "recall_on_conflict_questions": 1.0,
+      "false_positive_rate_on_other_answerable": 0.058823529411764705,
+      "n_conflict_questions": 4,
+      "n_other_answerable": 17
+    },
+    "abstention": {
+      "evidence_none_rate_on_unanswerable_or_ambiguous": 0.5714285714285714,
+      "n": 7
+    }
+  },
+  "answers": {
+    "n": 28,
+    "key_fact_recall": 1.0,
+    "groundedness": 1.0,
+    "groundedness_v1": 0.9,
+    "status_accuracy": 0.9642857142857143,
+    "status_accuracy_by_category": {
+      "direct": 1.0,
+      "paraphrase": 0.8,
+      "multi_document": 1.0,
+      "conflict": 1.0,
+      "ambiguous": 1.0,
+      "unanswerable": 1.0,
+      "similar_keywords": 1.0
+    },
+    "conflict_surfaced_rate": 1.0
+  },
+  "citations": {
+    "n_citations": 28,
+    "validity": 1.0,
+    "precision": 0.9642857142857143,
+    "location_correct": 1.0,
+    "recall": 1.0
+  },
+  "reliability": {
+    "n_questions": 28,
+    "failed_queries": 0,
+    "error_rate": 0.0,
+    "empty_retrieval_rate": 0.0
+  },
+  "failure_cases": [
+    {
+      "id": "q01",
+      "category": "direct",
+      "question": "How many days of sick leave do employees get?",
+      "reason": "retrieval_conflict_not_shown",
+      "detail": "retrieval flagged (employee handbook; annual employees full (day)) among passages the answer does not cite; the answer shown to the user has no conflict",
+      "severity": "note"
+    },
+    {
+      "id": "q11",
+      "category": "paraphrase",
+      "question": "Can I plug a USB memory stick into my work computer?",
+      "reason": "wrong_status",
+      "detail": "got not_found, accepted ['answered']",
+      "severity": "failure"
+    },
+    {
+      "id": "q23",
+      "category": "unanswerable",
+      "question": "Who is the CEO of Northwind Systems?",
+      "reason": "no_retrieval_abstention",
+      "detail": "evidence_strength=weak (the answer stage may still decline)",
+      "severity": "note"
+    },
+    {
+      "id": "q24",
+      "category": "unanswerable",
+      "question": "How many days of paternity leave does the company offer?",
+      "reason": "no_retrieval_abstention",
+      "detail": "evidence_strength=weak (the answer stage may still decline)",
+      "severity": "note"
+    },
+    {
+      "id": "q25",
+      "category": "unanswerable",
+      "question": "What is the Wi-Fi password for the guest network?",
+      "reason": "no_retrieval_abstention",
+      "detail": "evidence_strength=weak (the answer stage may still decline)",
+      "severity": "note"
+    }
+  ],
+  "failure_counts": {
+    "entries": 5,
+    "questions_flagged": 5,
+    "questions_with_failure": 1,
+    "n_questions": 28,
+    "by_severity": {
+      "failure": 1,
+      "review": 0,
+      "note": 4
+    },
+    "by_reason": {
+      "retrieval_conflict_not_shown": 1,
+      "wrong_status": 1,
+      "no_retrieval_abstention": 3
+    }
+  },
+  "questions": [
+    {
+      "id": "q01",
+      "category": "direct",
+      "question": "How many days of sick leave do employees get?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "10 days per year (both handbook versions agree).",
+      "relevant_ids": [
+        "doc_124b5f4761b4fee7:v2.0:00001",
+        "doc_9db1297b65aadb46:v1.0:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_124b5f4761b4fee7:v2.0:00001",
+          "doc_9db1297b65aadb46:v1.0:00001",
+          "doc_124b5f4761b4fee7:v2.0:00000",
+          "doc_9db1297b65aadb46:v1.0:00000",
+          "doc_9db1297b65aadb46:v1.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.8345,
+            "fusion_score": 1.0,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00001",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.8345,
+            "fusion_score": 0.9839,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.3765,
+            "fusion_score": 0.9683,
+            "snippet": "Full-time employees receive 25 days of annual leave per year. Unused annual leave may be carried over for up to 10 days into the next year.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.3701,
+            "fusion_score": 0.9531,
+            "snippet": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00002",
+            "filename": "employee_handbook_v1.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.2577,
+            "fusion_score": 0.9314,
+            "snippet": "Employees may work remotely up to 2 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.8345,
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "kind": "version_difference",
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00000",
+                "doc_9db1297b65aadb46:v1.0:00000"
+              ],
+              "description": "METADATA CONFLICT: 'employee_handbook_v2.md' (version 2.0) and 'employee_handbook_v1.md' (version 1.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "kind": "contradiction",
+              "topic": "annual employees full (day)",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00000",
+                "doc_9db1297b65aadb46:v1.0:00000"
+              ],
+              "description": "POSSIBLE contradiction on 'annual employees full': '25 days' in employee_handbook_v2.md § Leave Policy > Annual Leave, version 2.0 vs '20 days' in employee_handbook_v1.md § Leave Policy > Annual Leave, version 1.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "Employees receive 10 days of sick leave per year. [1][2]",
+        "citations": [
+          {
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "title": "Employee Handbook",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "excerpt": "Employees receive 10 days of sick leave per year.",
+            "source": "employee_handbook_v2.md#Leave Policy > Sick Leave"
+          },
+          {
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00001",
+            "filename": "employee_handbook_v1.md",
+            "title": "Employee Handbook",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "1.0",
+            "excerpt": "Employees receive 10 days of sick leave per year.",
+            "source": "employee_handbook_v1.md#Leave Policy > Sick Leave"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 1393
+    },
+    {
+      "id": "q02",
+      "category": "direct",
+      "question": "How often must passwords be changed?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Every 90 days.",
+      "relevant_ids": [
+        "doc_93293a04ec3bce21:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_3f6099fe55520422:v:00002",
+          "doc_4fdfa57f3f600eb7:v:00001",
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_9db1297b65aadb46:v1.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.4246,
+            "fusion_score": 1.0,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.3244,
+            "fusion_score": 0.4919,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2084,
+            "fusion_score": 0.4841,
+            "snippet": "An account is locked after 5 failed login attempts. Contact the help desk to unlock it.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.198,
+            "fusion_score": 0.4766,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00002",
+            "filename": "employee_handbook_v1.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.1355,
+            "fusion_score": 0.4692,
+            "snippet": "Employees may work remotely up to 2 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.4246,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "Passwords must be changed every 90 days. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "title": "it_security_policy",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "excerpt": "Passwords must be at least 12 characters long and must be changed every 90 days.",
+            "source": "it_security_policy.txt"
+          }
+        ],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 859
+    },
+    {
+      "id": "q03",
+      "category": "direct",
+      "question": "What is the API rate limit for the Standard plan?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "100 requests per minute.",
+      "relevant_ids": [
+        "doc_f972b9ba38ea0b61:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_f972b9ba38ea0b61:v:00000",
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_b4e1a4e6fd2ab2b0:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00001",
+          "doc_b4e1a4e6fd2ab2b0:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "cosine": 0.6363,
+            "fusion_score": 1.0,
+            "snippet": "The Standard plan allows 100 requests per minute. The Enterprise plan allows 1000 requests per minute.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.2562,
+            "fusion_score": 0.9839,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.136,
+            "fusion_score": 0.4841,
+            "snippet": "Release 3.2 adds single sign-on (SSO) support. Known issue: exports fail when a report has more than 10,000 rows.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00001",
+            "filename": "billing_faq.html",
+            "section": "Late payments",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0957,
+            "fusion_score": 0.4766,
+            "snippet": "A late fee of 1.5% per month applies to overdue balances.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00001",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.1 (2023-11-15)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0936,
+            "fusion_score": 0.4692,
+            "snippet": "Release 3.1 dropped support for Internet Explorer.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.6363,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "The API rate limit for the Standard plan is 100 requests per minute. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "title": "API Guide",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "excerpt": "The Standard plan allows 100 requests per minute.\n\nThe Enterprise plan allows 1000 requests per minute.",
+            "source": "api_guide.pdf#Rate Limits/p.1"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 678
+    },
+    {
+      "id": "q04",
+      "category": "direct",
+      "question": "What is the late payment fee?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "1.5% per month on overdue balances.",
+      "relevant_ids": [
+        "doc_3e7ea0a0d9cc1b9b:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_3e7ea0a0d9cc1b9b:v:00001",
+          "doc_3e7ea0a0d9cc1b9b:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00003",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_f972b9ba38ea0b61:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00001",
+            "filename": "billing_faq.html",
+            "section": "Late payments",
+            "page": -1,
+            "version": "",
+            "cosine": 0.7079,
+            "fusion_score": 1.0,
+            "snippet": "A late fee of 1.5% per month applies to overdue balances.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00000",
+            "filename": "billing_faq.html",
+            "section": "Invoices",
+            "page": -1,
+            "version": "",
+            "cosine": 0.104,
+            "fusion_score": 0.9761,
+            "snippet": "Invoices are issued on the 1st of each month. Payment is due within 30 days of the invoice date.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00003",
+            "filename": "billing_faq.html",
+            "section": "Payment methods",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1012,
+            "fusion_score": 0.9761,
+            "snippet": "You can update your payment method from the Billing page in your account settings.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.093,
+            "fusion_score": 0.4766,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.0831,
+            "fusion_score": 0.4692,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.7079,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "The late payment fee is 1.5% per month. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00001",
+            "filename": "billing_faq.html",
+            "title": "Billing FAQ",
+            "section": "Late payments",
+            "page": -1,
+            "version": "",
+            "excerpt": "A late fee of 1.5% per month applies to overdue balances.",
+            "source": "billing_faq.html#Late payments"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 671
+    },
+    {
+      "id": "q05",
+      "category": "direct",
+      "question": "How soon must a lost laptop be reported?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Within 24 hours.",
+      "relevant_ids": [
+        "doc_93293a04ec3bce21:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_3f6099fe55520422:v:00000",
+          "doc_3f6099fe55520422:v:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002",
+          "doc_124b5f4761b4fee7:v2.0:00003"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.714,
+            "fusion_score": 1.0,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3f6099fe55520422:v:00000",
+            "filename": "onboarding_guide.md",
+            "section": "First day",
+            "page": -1,
+            "version": "",
+            "cosine": 0.15,
+            "fusion_score": 0.9541,
+            "snippet": "New hires receive a laptop and a security badge on their first day.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1759,
+            "fusion_score": 0.4919,
+            "snippet": "All mandatory training modules must be completed within 30 days of the start date.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1578,
+            "fusion_score": 0.4841,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00003",
+            "filename": "employee_handbook_v2.md",
+            "section": "Expenses",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1533,
+            "fusion_score": 0.4766,
+            "snippet": "Meals while travelling are reimbursed up to $50 per day. Receipts must be submitted within 30 days.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.714,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "A lost laptop must be reported within 24 hours. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "title": "it_security_policy",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "excerpt": "A lost or stolen laptop must be reported to the IT help desk within 24 hours.",
+            "source": "it_security_policy.txt"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 669
+    },
+    {
+      "id": "q06",
+      "category": "direct",
+      "question": "What is the maximum payload size for API requests?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "5 MB.",
+      "relevant_ids": [
+        "doc_f972b9ba38ea0b61:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_f972b9ba38ea0b61:v:00000",
+          "doc_b4e1a4e6fd2ab2b0:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00002",
+          "doc_124b5f4761b4fee7:v2.0:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.7346,
+            "fusion_score": 1.0,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "cosine": 0.4858,
+            "fusion_score": 0.9839,
+            "snippet": "The Standard plan allows 100 requests per minute. The Enterprise plan allows 1000 requests per minute.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0978,
+            "fusion_score": 0.4841,
+            "snippet": "Release 3.2 adds single sign-on (SSO) support. Known issue: exports fail when a report has more than 10,000 rows.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00002",
+            "filename": "billing_faq.html",
+            "section": "Refunds",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0028,
+            "fusion_score": 0.4841,
+            "snippet": "Refunds are available within 14 days of purchase. Requests must be sent to the billing team.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.0807,
+            "fusion_score": 0.4766,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.7346,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "The maximum payload size for API requests is 5 MB [1].",
+        "citations": [
+          {
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "title": "API Guide",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "excerpt": "The maximum request payload size is 5 MB.",
+            "source": "api_guide.pdf#Payload and Authentication/p.2"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 875
+    },
+    {
+      "id": "q07",
+      "category": "paraphrase",
+      "question": "How long can I wait before telling IT that my notebook computer is missing?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Within 24 hours.",
+      "relevant_ids": [
+        "doc_93293a04ec3bce21:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_4fdfa57f3f600eb7:v:00000",
+          "doc_3f6099fe55520422:v:00002",
+          "doc_3f6099fe55520422:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1357,
+            "fusion_score": 0.9552,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.6683,
+            "fusion_score": 0.5,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00000",
+            "filename": "troubleshooting.md",
+            "section": "Router problems",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1854,
+            "fusion_score": 0.4919,
+            "snippet": "To factory reset the router, hold the reset button for 10 seconds until the lights blink.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1753,
+            "fusion_score": 0.4841,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1474,
+            "fusion_score": 0.4766,
+            "snippet": "All mandatory training modules must be completed within 30 days of the start date.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.6683,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 0.5,
+          "ndcg@5": 0.6309297535714575,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "You must report a lost or stolen laptop to the IT help desk within 24 hours [1].",
+        "citations": [
+          {
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "title": "it_security_policy",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "excerpt": "A lost or stolen laptop must be reported to the IT help desk within 24 hours.",
+            "source": "it_security_policy.txt"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 722
+    },
+    {
+      "id": "q08",
+      "category": "paraphrase",
+      "question": "When do invoices get sent out each month?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "On the 1st of each month.",
+      "relevant_ids": [
+        "doc_3e7ea0a0d9cc1b9b:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_3e7ea0a0d9cc1b9b:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00002",
+          "doc_3e7ea0a0d9cc1b9b:v:00001",
+          "doc_3f6099fe55520422:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00003"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00000",
+            "filename": "billing_faq.html",
+            "section": "Invoices",
+            "page": -1,
+            "version": "",
+            "cosine": 0.7162,
+            "fusion_score": 1.0,
+            "snippet": "Invoices are issued on the 1st of each month. Payment is due within 30 days of the invoice date.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00002",
+            "filename": "billing_faq.html",
+            "section": "Refunds",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1329,
+            "fusion_score": 0.9839,
+            "snippet": "Refunds are available within 14 days of purchase. Requests must be sent to the billing team.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00001",
+            "filename": "billing_faq.html",
+            "section": "Late payments",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1209,
+            "fusion_score": 0.9683,
+            "snippet": "A late fee of 1.5% per month applies to overdue balances.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00000",
+            "filename": "onboarding_guide.md",
+            "section": "First day",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1177,
+            "fusion_score": 0.4766,
+            "snippet": "New hires receive a laptop and a security badge on their first day.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00003",
+            "filename": "billing_faq.html",
+            "section": "Payment methods",
+            "page": -1,
+            "version": "",
+            "cosine": 0.097,
+            "fusion_score": 0.4692,
+            "snippet": "You can update your payment method from the Billing page in your account settings.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.7162,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "Invoices get sent out on the 1st of each month. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00000",
+            "filename": "billing_faq.html",
+            "title": "Billing FAQ",
+            "section": "Invoices",
+            "page": -1,
+            "version": "",
+            "excerpt": "Invoices are issued on the 1st of each month.",
+            "source": "billing_faq.html#Invoices"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 0.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 694
+    },
+    {
+      "id": "q09",
+      "category": "paraphrase",
+      "question": "What is the cap on requests per minute for Enterprise customers?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "1000 requests per minute.",
+      "relevant_ids": [
+        "doc_f972b9ba38ea0b61:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_f972b9ba38ea0b61:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00002",
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_b4e1a4e6fd2ab2b0:v:00000",
+          "doc_4fdfa57f3f600eb7:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "cosine": 0.7047,
+            "fusion_score": 1.0,
+            "snippet": "The Standard plan allows 100 requests per minute. The Enterprise plan allows 1000 requests per minute.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00002",
+            "filename": "billing_faq.html",
+            "section": "Refunds",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0816,
+            "fusion_score": 0.8986,
+            "snippet": "Refunds are available within 14 days of purchase. Requests must be sent to the billing team.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.2919,
+            "fusion_score": 0.4919,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2174,
+            "fusion_score": 0.4841,
+            "snippet": "Release 3.2 adds single sign-on (SSO) support. Known issue: exports fail when a report has more than 10,000 rows.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1462,
+            "fusion_score": 0.4766,
+            "snippet": "An account is locked after 5 failed login attempts. Contact the help desk to unlock it.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.7047,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "The cap on requests per minute for Enterprise customers is 1000. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "title": "API Guide",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "excerpt": "The Enterprise plan allows 1000 requests per minute.",
+            "source": "api_guide.pdf#Rate Limits/p.1"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 746
+    },
+    {
+      "id": "q10",
+      "category": "paraphrase",
+      "question": "How long is a bearer token valid?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "60 minutes.",
+      "relevant_ids": [
+        "doc_f972b9ba38ea0b61:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_9db1297b65aadb46:v1.0:00000",
+          "doc_124b5f4761b4fee7:v2.0:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.4265,
+            "fusion_score": 1.0,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0611,
+            "fusion_score": 0.9405,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.1241,
+            "fusion_score": 0.4919,
+            "snippet": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1189,
+            "fusion_score": 0.4841,
+            "snippet": "Full-time employees receive 25 days of annual leave per year. Unused annual leave may be carried over for up to 10 days into the next year.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00002",
+            "filename": "billing_faq.html",
+            "section": "Refunds",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1137,
+            "fusion_score": 0.4766,
+            "snippet": "Refunds are available within 14 days of purchase. Requests must be sent to the billing team.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.4265,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "A bearer token is valid for 60 minutes. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "title": "API Guide",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "excerpt": "Bearer tokens expire after 60 minutes.",
+            "source": "api_guide.pdf#Payload and Authentication/p.2"
+          }
+        ],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 0.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 706
+    },
+    {
+      "id": "q11",
+      "category": "paraphrase",
+      "question": "Can I plug a USB memory stick into my work computer?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "No, USB storage devices are prohibited.",
+      "relevant_ids": [
+        "doc_93293a04ec3bce21:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002",
+          "doc_9db1297b65aadb46:v1.0:00002",
+          "doc_3f6099fe55520422:v:00002",
+          "doc_93293a04ec3bce21:v:00000"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2687,
+            "fusion_score": 0.9841,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.0725,
+            "fusion_score": 0.9485,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00002",
+            "filename": "employee_handbook_v1.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.0733,
+            "fusion_score": 0.9472,
+            "snippet": "Employees may work remotely up to 2 days per week with manager approval.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1314,
+            "fusion_score": 0.4919,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1193,
+            "fusion_score": 0.4841,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "none",
+        "top_score": 0.2687,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "I could not find enough supporting evidence in the indexed documents to answer this question. Try rephrasing it, or upload the relevant documents.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": false,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": false
+      },
+      "latency_ms": 154
+    },
+    {
+      "id": "q12",
+      "category": "multi_document",
+      "question": "What should a new hire know about passwords and multi-factor authentication?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered",
+        "conflict"
+      ],
+      "reference_answer": "Set a password that follows the IT Security Policy (12+ characters, changed every 90 days) and enrol in MFA in the first week.",
+      "relevant_ids": [
+        "doc_3f6099fe55520422:v:00002",
+        "doc_93293a04ec3bce21:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_3f6099fe55520422:v:00002",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_3f6099fe55520422:v:00000",
+          "doc_3f6099fe55520422:v:00001",
+          "doc_f972b9ba38ea0b61:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.7478,
+            "fusion_score": 1.0,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.4054,
+            "fusion_score": 0.9839,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3f6099fe55520422:v:00000",
+            "filename": "onboarding_guide.md",
+            "section": "First day",
+            "page": -1,
+            "version": "",
+            "cosine": 0.38,
+            "fusion_score": 0.9683,
+            "snippet": "New hires receive a laptop and a security badge on their first day.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "cosine": 0.247,
+            "fusion_score": 0.9531,
+            "snippet": "All mandatory training modules must be completed within 30 days of the start date.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.0557,
+            "fusion_score": 0.8705,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.7478,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "A new hire should know that they must set a password that is at least 12 characters long, cannot reuse the last 5 passwords, and must be changed every 90 days [1][2]. They must also enroll in multi-factor authentication (MFA) for all VPN and email access [1][2]. If they forget their password, they should reset it themselves using the self-service identity portal [2]. The help desk will never ask for their password [2].",
+        "citations": [
+          {
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "title": "New Hire Onboarding",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "excerpt": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "source": "onboarding_guide.md#Accounts"
+          },
+          {
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "title": "it_security_policy",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "excerpt": "Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed.\n\nMulti-factor authentication (MFA) is required for all VPN and email access.\n\nIf you forget your password, reset it yourself using the self-service identity portal.",
+            "source": "it_security_policy.txt"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 1232
+    },
+    {
+      "id": "q13",
+      "category": "multi_document",
+      "question": "After joining, how soon must training be completed, and how long must passwords be?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Training within 30 days; passwords at least 12 characters.",
+      "relevant_ids": [
+        "doc_3f6099fe55520422:v:00001",
+        "doc_93293a04ec3bce21:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_3f6099fe55520422:v:00001",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_4fdfa57f3f600eb7:v:00001",
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_3f6099fe55520422:v:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "cosine": 0.4119,
+            "fusion_score": 0.9919,
+            "snippet": "All mandatory training modules must be completed within 30 days of the start date.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.3542,
+            "fusion_score": 0.9761,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1938,
+            "fusion_score": 0.9534,
+            "snippet": "An account is locked after 5 failed login attempts. Contact the help desk to unlock it.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.1538,
+            "fusion_score": 0.9318,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.4614,
+            "fusion_score": 0.5,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.4614,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "After joining, all mandatory training modules must be completed within 30 days [1]. Passwords must be at least 12 characters long [2] and changed every 90 days [2].",
+        "citations": [
+          {
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "title": "New Hire Onboarding",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "excerpt": "All mandatory training modules must be completed within 30 days of the start date.",
+            "source": "onboarding_guide.md#Training"
+          },
+          {
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "title": "it_security_policy",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "excerpt": "Passwords must be at least 12 characters long and must be changed every 90 days.",
+            "source": "it_security_policy.txt"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 823
+    },
+    {
+      "id": "q14",
+      "category": "multi_document",
+      "question": "Which release added single sign-on and what is its known export issue?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Release 3.2 added SSO; exports fail above 10,000 rows.",
+      "relevant_ids": [
+        "doc_b4e1a4e6fd2ab2b0:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_b4e1a4e6fd2ab2b0:v:00000",
+          "doc_b4e1a4e6fd2ab2b0:v:00001",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_f972b9ba38ea0b61:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.5539,
+            "fusion_score": 1.0,
+            "snippet": "Release 3.2 adds single sign-on (SSO) support. Known issue: exports fail when a report has more than 10,000 rows.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00001",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.1 (2023-11-15)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.187,
+            "fusion_score": 0.9839,
+            "snippet": "Release 3.1 dropped support for Internet Explorer.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.108,
+            "fusion_score": 0.4841,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "cosine": 0.1058,
+            "fusion_score": 0.4766,
+            "snippet": "The Standard plan allows 100 requests per minute. The Enterprise plan allows 1000 requests per minute.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00002",
+            "filename": "billing_faq.html",
+            "section": "Refunds",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0956,
+            "fusion_score": 0.4692,
+            "snippet": "Refunds are available within 14 days of purchase. Requests must be sent to the billing team.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.5539,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "Release 3.2 added single sign-on (SSO) support [1]. The known issue with this release is that exports fail when a report has more than 10,000 rows [1].",
+        "citations": [
+          {
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "title": "Release Notes",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "excerpt": "Known issue: exports fail when a report has more than 10,000 rows.",
+            "source": "product_release_notes.md#Release 3.2 (2024-03-01)"
+          }
+        ],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 820
+    },
+    {
+      "id": "q15",
+      "category": "conflict",
+      "question": "How many days of annual leave do employees get?",
+      "expected_status": "conflict",
+      "accepted_status": [
+        "conflict"
+      ],
+      "reference_answer": "Handbook v1.0 says 20 days; v2.0 says 25 days. The sources disagree.",
+      "relevant_ids": [
+        "doc_124b5f4761b4fee7:v2.0:00000",
+        "doc_9db1297b65aadb46:v1.0:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_9db1297b65aadb46:v1.0:00000",
+          "doc_124b5f4761b4fee7:v2.0:00000",
+          "doc_124b5f4761b4fee7:v2.0:00001",
+          "doc_9db1297b65aadb46:v1.0:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.9002,
+            "fusion_score": 0.9919,
+            "snippet": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.8942,
+            "fusion_score": 0.9919,
+            "snippet": "Full-time employees receive 25 days of annual leave per year. Unused annual leave may be carried over for up to 10 days into the next year.",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.3639,
+            "fusion_score": 0.9683,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00001",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.3639,
+            "fusion_score": 0.9531,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.2028,
+            "fusion_score": 0.9385,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.9002,
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "kind": "version_difference",
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00000",
+                "doc_124b5f4761b4fee7:v2.0:00000"
+              ],
+              "description": "METADATA CONFLICT: 'employee_handbook_v1.md' (version 1.0) and 'employee_handbook_v2.md' (version 2.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "kind": "contradiction",
+              "topic": "annual employees full (day)",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00000",
+                "doc_124b5f4761b4fee7:v2.0:00000"
+              ],
+              "description": "POSSIBLE contradiction on 'annual employees full': '20 days' in employee_handbook_v1.md § Leave Policy > Annual Leave, version 1.0 vs '25 days' in employee_handbook_v2.md § Leave Policy > Annual Leave, version 2.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "conflict",
+        "text": "The number of days of annual leave for employees differs between versions of the Employee Handbook. [1] states that full-time employees receive 20 days of annual leave per year, while [2] states that full-time employees receive 25 days of annual leave per year.",
+        "citations": [
+          {
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "title": "Employee Handbook",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "excerpt": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "source": "employee_handbook_v1.md#Leave Policy > Annual Leave"
+          },
+          {
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "title": "Employee Handbook",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "excerpt": "Full-time employees receive 25 days of annual leave per year. Unused annual leave may be carried over for up to 10 days into the next year.",
+            "source": "employee_handbook_v2.md#Leave Policy > Annual Leave"
+          }
+        ],
+        "confidence": "medium",
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00000",
+                "doc_124b5f4761b4fee7:v2.0:00000"
+              ],
+              "kind": "version_difference",
+              "description": "METADATA CONFLICT: 'employee_handbook_v1.md' (version 1.0) and 'employee_handbook_v2.md' (version 2.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "topic": "annual employees full (day)",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00000",
+                "doc_124b5f4761b4fee7:v2.0:00000"
+              ],
+              "kind": "contradiction",
+              "description": "POSSIBLE contradiction on 'annual employees full': '20 days' in employee_handbook_v1.md § Leave Policy > Annual Leave, version 1.0 vs '25 days' in employee_handbook_v2.md § Leave Policy > Annual Leave, version 2.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": true
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 882
+    },
+    {
+      "id": "q16",
+      "category": "conflict",
+      "question": "How many days of unused leave can be carried over?",
+      "expected_status": "conflict",
+      "accepted_status": [
+        "conflict"
+      ],
+      "reference_answer": "v1.0: 5 days; v2.0: 10 days.",
+      "relevant_ids": [
+        "doc_124b5f4761b4fee7:v2.0:00000",
+        "doc_9db1297b65aadb46:v1.0:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_124b5f4761b4fee7:v2.0:00000",
+          "doc_9db1297b65aadb46:v1.0:00000",
+          "doc_124b5f4761b4fee7:v2.0:00001",
+          "doc_9db1297b65aadb46:v1.0:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.4703,
+            "fusion_score": 1.0,
+            "snippet": "Full-time employees receive 25 days of annual leave per year. Unused annual leave may be carried over for up to 10 days into the next year.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.468,
+            "fusion_score": 0.9839,
+            "snippet": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.2349,
+            "fusion_score": 0.9683,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00001",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.2349,
+            "fusion_score": 0.9531,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1864,
+            "fusion_score": 0.9385,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.4703,
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "kind": "version_difference",
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00000",
+                "doc_9db1297b65aadb46:v1.0:00000"
+              ],
+              "description": "METADATA CONFLICT: 'employee_handbook_v2.md' (version 2.0) and 'employee_handbook_v1.md' (version 1.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "kind": "contradiction",
+              "topic": "annual employees full (day)",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00000",
+                "doc_9db1297b65aadb46:v1.0:00000"
+              ],
+              "description": "POSSIBLE contradiction on 'annual employees full': '25 days' in employee_handbook_v2.md § Leave Policy > Annual Leave, version 2.0 vs '20 days' in employee_handbook_v1.md § Leave Policy > Annual Leave, version 1.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "conflict",
+        "text": "The number of days of unused leave that can be carried over differs between versions of the Employee Handbook. [1] states that unused annual leave may be carried over for up to 10 days into the next year, while [2] states that unused annual leave may be carried over for up to 5 days into the next year.",
+        "citations": [
+          {
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "title": "Employee Handbook",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "excerpt": "Unused annual leave may be carried over for up to 10 days into the next year.",
+            "source": "employee_handbook_v2.md#Leave Policy > Annual Leave"
+          },
+          {
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "title": "Employee Handbook",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "excerpt": "Unused annual leave may be carried over for up to 5 days into the next year.",
+            "source": "employee_handbook_v1.md#Leave Policy > Annual Leave"
+          }
+        ],
+        "confidence": "medium",
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00000",
+                "doc_9db1297b65aadb46:v1.0:00000"
+              ],
+              "kind": "version_difference",
+              "description": "METADATA CONFLICT: 'employee_handbook_v2.md' (version 2.0) and 'employee_handbook_v1.md' (version 1.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "topic": "annual employees full (day)",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00000",
+                "doc_9db1297b65aadb46:v1.0:00000"
+              ],
+              "kind": "contradiction",
+              "description": "POSSIBLE contradiction on 'annual employees full': '25 days' in employee_handbook_v2.md § Leave Policy > Annual Leave, version 2.0 vs '20 days' in employee_handbook_v1.md § Leave Policy > Annual Leave, version 1.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": true
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 953
+    },
+    {
+      "id": "q17",
+      "category": "conflict",
+      "question": "How many days per week can employees work remotely?",
+      "expected_status": "conflict",
+      "accepted_status": [
+        "conflict"
+      ],
+      "reference_answer": "v1.0: 2 days; v2.0: 3 days.",
+      "relevant_ids": [
+        "doc_124b5f4761b4fee7:v2.0:00002",
+        "doc_9db1297b65aadb46:v1.0:00002"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_9db1297b65aadb46:v1.0:00002",
+          "doc_124b5f4761b4fee7:v2.0:00002",
+          "doc_124b5f4761b4fee7:v2.0:00001",
+          "doc_9db1297b65aadb46:v1.0:00001",
+          "doc_9db1297b65aadb46:v1.0:00000"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00002",
+            "filename": "employee_handbook_v1.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.8903,
+            "fusion_score": 0.9919,
+            "snippet": "Employees may work remotely up to 2 days per week with manager approval.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.8839,
+            "fusion_score": 0.9919,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.22,
+            "fusion_score": 0.9683,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00001",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.22,
+            "fusion_score": 0.9531,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.1915,
+            "fusion_score": 0.9314,
+            "snippet": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.8903,
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "kind": "version_difference",
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00002",
+                "doc_124b5f4761b4fee7:v2.0:00002"
+              ],
+              "description": "METADATA CONFLICT: 'employee_handbook_v1.md' (version 1.0) and 'employee_handbook_v2.md' (version 2.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "kind": "contradiction",
+              "topic": "approval employees manager (day)",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00002",
+                "doc_124b5f4761b4fee7:v2.0:00002"
+              ],
+              "description": "POSSIBLE contradiction on 'approval employees manager': '2 days' in employee_handbook_v1.md § Remote Work, version 1.0 vs '3 days' in employee_handbook_v2.md § Remote Work, version 2.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "conflict",
+        "text": "The number of days employees can work remotely per week differs between versions of the Employee Handbook. [1] states employees may work remotely up to 2 days per week, while [2] states employees may work remotely up to 3 days per week.",
+        "citations": [
+          {
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00002",
+            "filename": "employee_handbook_v1.md",
+            "title": "Employee Handbook",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "1.0",
+            "excerpt": "Employees may work remotely up to 2 days per week with manager approval.",
+            "source": "employee_handbook_v1.md#Remote Work"
+          },
+          {
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "title": "Employee Handbook",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "excerpt": "Employees may work remotely up to 3 days per week with manager approval.",
+            "source": "employee_handbook_v2.md#Remote Work"
+          }
+        ],
+        "confidence": "medium",
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00002",
+                "doc_124b5f4761b4fee7:v2.0:00002"
+              ],
+              "kind": "version_difference",
+              "description": "METADATA CONFLICT: 'employee_handbook_v1.md' (version 1.0) and 'employee_handbook_v2.md' (version 2.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "topic": "approval employees manager (day)",
+              "chunk_ids": [
+                "doc_9db1297b65aadb46:v1.0:00002",
+                "doc_124b5f4761b4fee7:v2.0:00002"
+              ],
+              "kind": "contradiction",
+              "description": "POSSIBLE contradiction on 'approval employees manager': '2 days' in employee_handbook_v1.md § Remote Work, version 1.0 vs '3 days' in employee_handbook_v2.md § Remote Work, version 2.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": true
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 926
+    },
+    {
+      "id": "q18",
+      "category": "conflict",
+      "question": "What is the daily meal expense limit when travelling?",
+      "expected_status": "conflict",
+      "accepted_status": [
+        "conflict"
+      ],
+      "reference_answer": "v1.0: $40; v2.0: $50.",
+      "relevant_ids": [
+        "doc_124b5f4761b4fee7:v2.0:00003",
+        "doc_9db1297b65aadb46:v1.0:00003"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_124b5f4761b4fee7:v2.0:00003",
+          "doc_9db1297b65aadb46:v1.0:00003",
+          "doc_f972b9ba38ea0b61:v:00000",
+          "doc_b4e1a4e6fd2ab2b0:v:00000",
+          "doc_124b5f4761b4fee7:v2.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00003",
+            "filename": "employee_handbook_v2.md",
+            "section": "Expenses",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.6937,
+            "fusion_score": 1.0,
+            "snippet": "Meals while travelling are reimbursed up to $50 per day. Receipts must be submitted within 30 days.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00003",
+            "filename": "employee_handbook_v1.md",
+            "section": "Expenses",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.6914,
+            "fusion_score": 0.9839,
+            "snippet": "Meals while travelling are reimbursed up to $40 per day. Receipts must be submitted within 30 days.",
+            "relevant": true
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "cosine": 0.1193,
+            "fusion_score": 0.4841,
+            "snippet": "The Standard plan allows 100 requests per minute. The Enterprise plan allows 1000 requests per minute.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0928,
+            "fusion_score": 0.4766,
+            "snippet": "Release 3.2 adds single sign-on (SSO) support. Known issue: exports fail when a report has more than 10,000 rows.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.0927,
+            "fusion_score": 0.4692,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.6937,
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "kind": "version_difference",
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00003",
+                "doc_9db1297b65aadb46:v1.0:00003"
+              ],
+              "description": "METADATA CONFLICT: 'employee_handbook_v2.md' (version 2.0) and 'employee_handbook_v1.md' (version 1.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "kind": "contradiction",
+              "topic": "day days meals ($)",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00003",
+                "doc_9db1297b65aadb46:v1.0:00003"
+              ],
+              "description": "POSSIBLE contradiction on 'day days meals': '$50 per' in employee_handbook_v2.md § Expenses, version 2.0 vs '$40 per' in employee_handbook_v1.md § Expenses, version 1.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "conflict",
+        "text": "The daily meal expense limit when travelling is $50 per day according to version 2.0 of the Employee Handbook [1], but $40 per day according to version 1.0 [2].",
+        "citations": [
+          {
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00003",
+            "filename": "employee_handbook_v2.md",
+            "title": "Employee Handbook",
+            "section": "Expenses",
+            "page": -1,
+            "version": "2.0",
+            "excerpt": "Meals while travelling are reimbursed up to $50 per day.",
+            "source": "employee_handbook_v2.md#Expenses"
+          },
+          {
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00003",
+            "filename": "employee_handbook_v1.md",
+            "title": "Employee Handbook",
+            "section": "Expenses",
+            "page": -1,
+            "version": "1.0",
+            "excerpt": "Meals while travelling are reimbursed up to $40 per day.",
+            "source": "employee_handbook_v1.md#Expenses"
+          }
+        ],
+        "confidence": "medium",
+        "conflicts": {
+          "has_conflict": true,
+          "groups": [
+            {
+              "topic": "employee handbook",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00003",
+                "doc_9db1297b65aadb46:v1.0:00003"
+              ],
+              "kind": "version_difference",
+              "description": "METADATA CONFLICT: 'employee_handbook_v2.md' (version 2.0) and 'employee_handbook_v1.md' (version 1.0) appear to be different versions of the same document ('employee handbook') and both match the question. Which version is current is NOT determined here (filename order and ingestion time are not treated as authoritative)."
+            },
+            {
+              "topic": "day days meals ($)",
+              "chunk_ids": [
+                "doc_124b5f4761b4fee7:v2.0:00003",
+                "doc_9db1297b65aadb46:v1.0:00003"
+              ],
+              "kind": "contradiction",
+              "description": "POSSIBLE contradiction on 'day days meals': '$50 per' in employee_handbook_v2.md § Expenses, version 2.0 vs '$40 per' in employee_handbook_v1.md § Expenses, version 1.0. This is a heuristic comparison of numbers/dates in similar context; it can be a false positive or miss other disagreements. Verify against the cited sources."
+            }
+          ]
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": true
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 2,
+        "hit": true
+      },
+      "latency_ms": 825
+    },
+    {
+      "id": "q19",
+      "category": "ambiguous",
+      "question": "What is the limit?",
+      "expected_status": "needs_clarification",
+      "accepted_status": [
+        "needs_clarification",
+        "not_found"
+      ],
+      "reference_answer": "Ambiguous: could mean API rate limit, payload limit, meal limit...",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_f972b9ba38ea0b61:v:00000",
+          "doc_b4e1a4e6fd2ab2b0:v:00000",
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002",
+          "doc_124b5f4761b4fee7:v2.0:00003"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00000",
+            "filename": "api_guide.pdf",
+            "section": "Rate Limits",
+            "page": 1,
+            "version": "",
+            "cosine": 0.2216,
+            "fusion_score": 0.5,
+            "snippet": "The Standard plan allows 100 requests per minute. The Enterprise plan allows 1000 requests per minute.",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00000",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.2 (2024-03-01)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1641,
+            "fusion_score": 0.4919,
+            "snippet": "Release 3.2 adds single sign-on (SSO) support. Known issue: exports fail when a report has more than 10,000 rows.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.1501,
+            "fusion_score": 0.4841,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1166,
+            "fusion_score": 0.4766,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00003",
+            "filename": "employee_handbook_v2.md",
+            "section": "Expenses",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.113,
+            "fusion_score": 0.4692,
+            "snippet": "Meals while travelling are reimbursed up to $50 per day. Receipts must be submitted within 30 days.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "none",
+        "top_score": 0.2216,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "I could not find enough supporting evidence in the indexed documents to answer this question. Try rephrasing it, or upload the relevant documents.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 139
+    },
+    {
+      "id": "q20",
+      "category": "ambiguous",
+      "question": "How do I reset it?",
+      "expected_status": "needs_clarification",
+      "accepted_status": [
+        "needs_clarification",
+        "not_found"
+      ],
+      "reference_answer": "Ambiguous: password or router?",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_4fdfa57f3f600eb7:v:00000",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00003",
+          "doc_3f6099fe55520422:v:00002",
+          "doc_4fdfa57f3f600eb7:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00000",
+            "filename": "troubleshooting.md",
+            "section": "Router problems",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2945,
+            "fusion_score": 1.0,
+            "snippet": "To factory reset the router, hold the reset button for 10 seconds until the lights blink.",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1379,
+            "fusion_score": 0.9761,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00003",
+            "filename": "billing_faq.html",
+            "section": "Payment methods",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1414,
+            "fusion_score": 0.4919,
+            "snippet": "You can update your payment method from the Billing page in your account settings.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1214,
+            "fusion_score": 0.4766,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1196,
+            "fusion_score": 0.4692,
+            "snippet": "An account is locked after 5 failed login attempts. Contact the help desk to unlock it.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "none",
+        "top_score": 0.2945,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "I could not find enough supporting evidence in the indexed documents to answer this question. Try rephrasing it, or upload the relevant documents.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 149
+    },
+    {
+      "id": "q21",
+      "category": "ambiguous",
+      "question": "Tell me about the deadline.",
+      "expected_status": "needs_clarification",
+      "accepted_status": [
+        "needs_clarification",
+        "not_found"
+      ],
+      "reference_answer": "Ambiguous: invoice due date, receipts, training?",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_3f6099fe55520422:v:00001",
+          "doc_3e7ea0a0d9cc1b9b:v:00000",
+          "doc_3e7ea0a0d9cc1b9b:v:00001",
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_93293a04ec3bce21:v:00000"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1953,
+            "fusion_score": 0.5,
+            "snippet": "All mandatory training modules must be completed within 30 days of the start date.",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00000",
+            "filename": "billing_faq.html",
+            "section": "Invoices",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1606,
+            "fusion_score": 0.4919,
+            "snippet": "Invoices are issued on the 1st of each month. Payment is due within 30 days of the invoice date.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00001",
+            "filename": "billing_faq.html",
+            "section": "Late payments",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1462,
+            "fusion_score": 0.4841,
+            "snippet": "A late fee of 1.5% per month applies to overdue balances.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1347,
+            "fusion_score": 0.4766,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.106,
+            "fusion_score": 0.4692,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "none",
+        "top_score": 0.1953,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "I could not find enough supporting evidence in the indexed documents to answer this question. Try rephrasing it, or upload the relevant documents.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 142
+    },
+    {
+      "id": "q22",
+      "category": "unanswerable",
+      "question": "What is the company's current stock price?",
+      "expected_status": "not_found",
+      "accepted_status": [
+        "not_found"
+      ],
+      "reference_answer": "Not in the documents.",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_3e7ea0a0d9cc1b9b:v:00003",
+          "doc_3e7ea0a0d9cc1b9b:v:00002",
+          "doc_3f6099fe55520422:v:00000",
+          "doc_124b5f4761b4fee7:v2.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0423,
+            "fusion_score": 0.9178,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00003",
+            "filename": "billing_faq.html",
+            "section": "Payment methods",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1043,
+            "fusion_score": 0.5,
+            "snippet": "You can update your payment method from the Billing page in your account settings.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00002",
+            "filename": "billing_faq.html",
+            "section": "Refunds",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1017,
+            "fusion_score": 0.4919,
+            "snippet": "Refunds are available within 14 days of purchase. Requests must be sent to the billing team.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00000",
+            "filename": "onboarding_guide.md",
+            "section": "First day",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0964,
+            "fusion_score": 0.4841,
+            "snippet": "New hires receive a laptop and a security badge on their first day.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.0861,
+            "fusion_score": 0.4766,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "none",
+        "top_score": 0.1043,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "I could not find enough supporting evidence in the indexed documents to answer this question. Try rephrasing it, or upload the relevant documents.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 148
+    },
+    {
+      "id": "q23",
+      "category": "unanswerable",
+      "question": "Who is the CEO of Northwind Systems?",
+      "expected_status": "not_found",
+      "accepted_status": [
+        "not_found"
+      ],
+      "reference_answer": "Not in the documents.",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_b4e1a4e6fd2ab2b0:v:00001",
+          "doc_3e7ea0a0d9cc1b9b:v:00001",
+          "doc_3f6099fe55520422:v:00001",
+          "doc_f972b9ba38ea0b61:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.3634,
+            "fusion_score": 1.0,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00001",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.1 (2023-11-15)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0852,
+            "fusion_score": 0.4919,
+            "snippet": "Release 3.1 dropped support for Internet Explorer.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00001",
+            "filename": "billing_faq.html",
+            "section": "Late payments",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0848,
+            "fusion_score": 0.4841,
+            "snippet": "A late fee of 1.5% per month applies to overdue balances.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3f6099fe55520422:v:00001",
+            "filename": "onboarding_guide.md",
+            "section": "Training",
+            "page": -1,
+            "version": "",
+            "cosine": 0.0671,
+            "fusion_score": 0.4766,
+            "snippet": "All mandatory training modules must be completed within 30 days of the start date.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.0599,
+            "fusion_score": 0.4692,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.3634,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "The provided evidence does not contain information about the CEO of Northwind Systems.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 649
+    },
+    {
+      "id": "q24",
+      "category": "unanswerable",
+      "question": "How many days of paternity leave does the company offer?",
+      "expected_status": "not_found",
+      "accepted_status": [
+        "not_found"
+      ],
+      "reference_answer": "Not stated in the documents.",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_9db1297b65aadb46:v1.0:00000",
+          "doc_124b5f4761b4fee7:v2.0:00000",
+          "doc_124b5f4761b4fee7:v2.0:00001",
+          "doc_9db1297b65aadb46:v1.0:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00000",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.3003,
+            "fusion_score": 0.9919,
+            "snippet": "Full-time employees receive 20 days of annual leave per year. Unused annual leave may be carried over for up to 5 days into the next year.",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00000",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Annual Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.2964,
+            "fusion_score": 0.9919,
+            "snippet": "Full-time employees receive 25 days of annual leave per year. Unused annual leave may be carried over for up to 10 days into the next year.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00001",
+            "filename": "employee_handbook_v2.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.217,
+            "fusion_score": 0.9683,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_9db1297b65aadb46:v1.0:00001",
+            "filename": "employee_handbook_v1.md",
+            "section": "Leave Policy > Sick Leave",
+            "page": -1,
+            "version": "1.0",
+            "cosine": 0.217,
+            "fusion_score": 0.9531,
+            "snippet": "Employees receive 10 days of sick leave per year. A medical certificate is required for absences longer than 3 days.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1985,
+            "fusion_score": 0.9314,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.3003,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "The provided evidence does not contain information about the number of days of paternity leave offered by the company.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 999
+    },
+    {
+      "id": "q25",
+      "category": "unanswerable",
+      "question": "What is the Wi-Fi password for the guest network?",
+      "expected_status": "not_found",
+      "accepted_status": [
+        "not_found"
+      ],
+      "reference_answer": "Not in the documents.",
+      "relevant_ids": [],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_3f6099fe55520422:v:00002",
+          "doc_4fdfa57f3f600eb7:v:00000",
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_3f6099fe55520422:v:00000"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.3383,
+            "fusion_score": 1.0,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2054,
+            "fusion_score": 0.9761,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00000",
+            "filename": "troubleshooting.md",
+            "section": "Router problems",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2116,
+            "fusion_score": 0.4919,
+            "snippet": "To factory reset the router, hold the reset button for 10 seconds until the lights blink.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1482,
+            "fusion_score": 0.4766,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3f6099fe55520422:v:00000",
+            "filename": "onboarding_guide.md",
+            "section": "First day",
+            "page": -1,
+            "version": "",
+            "cosine": 0.108,
+            "fusion_score": 0.4692,
+            "snippet": "New hires receive a laptop and a security badge on their first day.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.3383,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": null
+      },
+      "answer": {
+        "status": "not_found",
+        "text": "The Wi-Fi password for the guest network is not provided in the evidence. discuss password policies, multi-factor authentication, and lost laptop procedures, but do not mention the guest Wi-Fi password.",
+        "citations": [],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": null,
+        "groundedness": null,
+        "groundedness_v1": null,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 0,
+        "valid": 0,
+        "location_correct": 0,
+        "on_target": 0,
+        "hit": null
+      },
+      "latency_ms": 773
+    },
+    {
+      "id": "q26",
+      "category": "similar_keywords",
+      "question": "How do I reset my password?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Use the self-service identity portal.",
+      "relevant_ids": [
+        "doc_93293a04ec3bce21:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_4fdfa57f3f600eb7:v:00000",
+          "doc_3f6099fe55520422:v:00002",
+          "doc_3e7ea0a0d9cc1b9b:v:00003",
+          "doc_4fdfa57f3f600eb7:v:00001"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2043,
+            "fusion_score": 1.0,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00000",
+            "filename": "troubleshooting.md",
+            "section": "Router problems",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2013,
+            "fusion_score": 0.9839,
+            "snippet": "To factory reset the router, hold the reset button for 10 seconds until the lights blink.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1617,
+            "fusion_score": 0.9607,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_3e7ea0a0d9cc1b9b:v:00003",
+            "filename": "billing_faq.html",
+            "section": "Payment methods",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1734,
+            "fusion_score": 0.4841,
+            "snippet": "You can update your payment method from the Billing page in your account settings.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1556,
+            "fusion_score": 0.4692,
+            "snippet": "An account is locked after 5 failed login attempts. Contact the help desk to unlock it.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "weak",
+        "top_score": 0.2043,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "To reset your password, you must use the self-service identity portal as the help desk will never ask for your password [1]. If you are a new hire, you must set a password that follows the IT Security Policy and enroll in multi-factor authentication during your first week [2].",
+        "citations": [
+          {
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "title": "it_security_policy",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "excerpt": "If you forget your password, reset it yourself using the self-service identity portal. The help desk will never ask for your password.",
+            "source": "it_security_policy.txt"
+          },
+          {
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "title": "New Hire Onboarding",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "excerpt": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "source": "onboarding_guide.md#Accounts"
+          }
+        ],
+        "confidence": "low",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 2,
+        "valid": 2,
+        "location_correct": 2,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 923
+    },
+    {
+      "id": "q27",
+      "category": "similar_keywords",
+      "question": "How do I factory reset the router?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "Hold the reset button for 10 seconds.",
+      "relevant_ids": [
+        "doc_4fdfa57f3f600eb7:v:00000"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_4fdfa57f3f600eb7:v:00000",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_93293a04ec3bce21:v:00001",
+          "doc_b4e1a4e6fd2ab2b0:v:00001",
+          "doc_124b5f4761b4fee7:v2.0:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00000",
+            "filename": "troubleshooting.md",
+            "section": "Router problems",
+            "page": -1,
+            "version": "",
+            "cosine": 0.9128,
+            "fusion_score": 1.0,
+            "snippet": "To factory reset the router, hold the reset button for 10 seconds until the lights blink.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1519,
+            "fusion_score": 0.9839,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_93293a04ec3bce21:v:00001",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1447,
+            "fusion_score": 0.4841,
+            "snippet": "A lost or stolen laptop must be reported to the IT help desk within 24 hours. USB storage devices are prohibited on company computers.",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_b4e1a4e6fd2ab2b0:v:00001",
+            "filename": "product_release_notes.md",
+            "section": "Release 3.1 (2023-11-15)",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1395,
+            "fusion_score": 0.4766,
+            "snippet": "Release 3.1 dropped support for Internet Explorer.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1099,
+            "fusion_score": 0.4692,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.9128,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "To factory reset the router, hold the reset button for 10 seconds until the lights blink. [1]",
+        "citations": [
+          {
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00000",
+            "filename": "troubleshooting.md",
+            "title": "Troubleshooting Guide",
+            "section": "Router problems",
+            "page": -1,
+            "version": "",
+            "excerpt": "To factory reset the router, hold the reset button for 10 seconds until the lights blink.",
+            "source": "troubleshooting.md#Router problems"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": 1.0,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 753
+    },
+    {
+      "id": "q28",
+      "category": "similar_keywords",
+      "question": "What happens after five failed login attempts?",
+      "expected_status": "answered",
+      "accepted_status": [
+        "answered"
+      ],
+      "reference_answer": "The account is locked; contact the help desk.",
+      "relevant_ids": [
+        "doc_4fdfa57f3f600eb7:v:00001"
+      ],
+      "error": null,
+      "retrieval": {
+        "top_ids": [
+          "doc_4fdfa57f3f600eb7:v:00001",
+          "doc_f972b9ba38ea0b61:v:00001",
+          "doc_93293a04ec3bce21:v:00000",
+          "doc_124b5f4761b4fee7:v2.0:00002",
+          "doc_3f6099fe55520422:v:00002"
+        ],
+        "top": [
+          {
+            "rank": 1,
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "cosine": 0.7881,
+            "fusion_score": 1.0,
+            "snippet": "An account is locked after 5 failed login attempts. Contact the help desk to unlock it.",
+            "relevant": true
+          },
+          {
+            "rank": 2,
+            "chunk_id": "doc_f972b9ba38ea0b61:v:00001",
+            "filename": "api_guide.pdf",
+            "section": "Payload and Authentication",
+            "page": 2,
+            "version": "",
+            "cosine": 0.1165,
+            "fusion_score": 0.9472,
+            "snippet": "The maximum request payload size is 5 MB. Bearer tokens expire after 60 minutes.",
+            "relevant": false
+          },
+          {
+            "rank": 3,
+            "chunk_id": "doc_93293a04ec3bce21:v:00000",
+            "filename": "it_security_policy.txt",
+            "section": "",
+            "page": -1,
+            "version": "",
+            "cosine": 0.2315,
+            "fusion_score": 0.4919,
+            "snippet": "Northwind IT Security Policy Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed. Multi…",
+            "relevant": false
+          },
+          {
+            "rank": 4,
+            "chunk_id": "doc_124b5f4761b4fee7:v2.0:00002",
+            "filename": "employee_handbook_v2.md",
+            "section": "Remote Work",
+            "page": -1,
+            "version": "2.0",
+            "cosine": 0.1529,
+            "fusion_score": 0.4841,
+            "snippet": "Employees may work remotely up to 3 days per week with manager approval.",
+            "relevant": false
+          },
+          {
+            "rank": 5,
+            "chunk_id": "doc_3f6099fe55520422:v:00002",
+            "filename": "onboarding_guide.md",
+            "section": "Accounts",
+            "page": -1,
+            "version": "",
+            "cosine": 0.1493,
+            "fusion_score": 0.4766,
+            "snippet": "New hires must set a password that follows the IT Security Policy and enrol in multi-factor authentication during their first week.",
+            "relevant": false
+          }
+        ],
+        "evidence_strength": "strong",
+        "top_score": 0.7881,
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "metrics": {
+          "recall@5": 1.0,
+          "mrr": 1.0,
+          "ndcg@5": 1.0,
+          "hit_rate@5": 1.0
+        }
+      },
+      "answer": {
+        "status": "answered",
+        "text": "After five failed login attempts, an account is locked [1].",
+        "citations": [
+          {
+            "chunk_id": "doc_4fdfa57f3f600eb7:v:00001",
+            "filename": "troubleshooting.md",
+            "title": "Troubleshooting Guide",
+            "section": "Account lockout",
+            "page": -1,
+            "version": "",
+            "excerpt": "An account is locked after 5 failed login attempts.",
+            "source": "troubleshooting.md#Account lockout"
+          }
+        ],
+        "confidence": "high",
+        "conflicts": {
+          "has_conflict": false,
+          "groups": []
+        },
+        "clarifying_question": null,
+        "warnings": []
+      },
+      "answer_metrics": {
+        "key_fact_recall": 1.0,
+        "groundedness": null,
+        "groundedness_v1": 1.0,
+        "status_ok": true,
+        "conflict_surfaced": null
+      },
+      "citation": {
+        "n": 1,
+        "valid": 1,
+        "location_correct": 1,
+        "on_target": 1,
+        "hit": true
+      },
+      "latency_ms": 686
+    }
+  ],
+  "comparison": {
+    "baseline": {
+      "mode": "live",
+      "timestamp": "2026-11-14T13:58:10+00:00",
+      "llm_model": "apac.amazon.nova-lite-v1:0",
+      "embed_model": "amazon.titan-embed-text-v2:0"
+    },
+    "rows": [
+      {
+        "metric": "Recall@5",
+        "before": 1.0,
+        "after": 1.0
+      },
+      {
+        "metric": "MRR",
+        "before": 0.9761904761904762,
+        "after": 0.9761904761904762
+      },
+      {
+        "metric": "nDCG@5",
+        "before": 0.9824252263605456,
+        "after": 0.9824252263605456
+      },
+      {
+        "metric": "Key-fact recall",
+        "before": 0.9722222222222222,
+        "after": 1.0
+      },
+      {
+        "metric": "Status accuracy",
+        "before": 0.8571428571428571,
+        "after": 0.9642857142857143
+      },
+      {
+        "metric": "Conflict surfaced",
+        "before": 0.75,
+        "after": 1.0
+      },
+      {
+        "metric": "Citation validity",
+        "before": 1.0,
+        "after": 1.0
+      },
+      {
+        "metric": "Citation precision",
+        "before": 1.0,
+        "after": 0.9642857142857143
+      },
+      {
+        "metric": "Citation recall",
+        "before": 1.0,
+        "after": 1.0
+      },
+      {
+        "metric": "Groundedness, run-1 proxy",
+        "before": 0.7407407407407408,
+        "after": 0.9
+      },
+      {
+        "metric": "Groundedness, proxy v2 (new method)",
+        "before": null,
+        "after": 1.0
+      },
+      {
+        "metric": "Questions with a 'failure' entry",
+        "before": 5,
+        "after": 1
+      },
+      {
+        "metric": "Flagged entries (all severities)",
+        "before": 15,
+        "after": 5
+      }
+    ],
+    "failure_counts_before": {
+      "entries": 15,
+      "questions_flagged": 14,
+      "questions_with_failure": 5,
+      "n_questions": 28,
+      "by_severity": {
+        "failure": 6,
+        "review": 6,
+        "note": 3
+      },
+      "by_reason": {
+        "false_conflict": 1,
+        "wrong_status": 4,
+        "low_groundedness_proxy": 6,
+        "missing_key_facts": 1,
+        "no_retrieval_abstention": 3
+      }
+    },
+    "failure_counts_after": {
+      "entries": 5,
+      "questions_flagged": 5,
+      "questions_with_failure": 1,
+      "n_questions": 28,
+      "by_severity": {
+        "failure": 1,
+        "review": 0,
+        "note": 4
+      },
+      "by_reason": {
+        "retrieval_conflict_not_shown": 1,
+        "wrong_status": 1,
+        "no_retrieval_abstention": 3
+      }
+    },
+    "system_changes": [
+      "Tokenizer: personal pronouns (my, me, his, ...) are now stop words, so \"How do I reset my password?\" has 2 query terms instead of 3 and the lexical-rescue rule can apply (a bug, not a threshold change).",
+      "Generator: evidence aliases are normalized leniently ([E1], e1, 1), and a claim list with no valid evidence no longer discards an answer whose text carries valid inline citations.",
+      "Generator: a conflict only counts for an answer if it involves a passage the answer actually cites (previously any retrieved conflict forced status 'conflict').",
+      "Generator/prompt: the model may not call a version latest/newer/older/previous/current/outdated unless a source says so, and a deterministic warning flags it if it does."
+    ],
+    "methodology_changes": [
+      "Groundedness proxy v2: words copied from the question and conflict-framing words are ignored; numbers in an answer must appear in the cited text (or its version/file metadata); a sentence is checkable if it has a citation marker or a number. The run-1 proxy is still reported as 'groundedness_v1' for the same answers.",
+      "'false_conflict' now measures the conflict shown to the user (the answer's conflicts); a conflict flagged by retrieval only among passages the answer does not cite is recorded as the note 'retrieval_conflict_not_shown'. In offline mode (no answer) the retrieval-level flag is used.",
+      "Groundedness proxy v2 judges word coverage only when at least 3 content words remain after exclusions (numbers are always judged); this removed false alarms on short, fully supported sentences whose remaining words were connectives.",
+      "Failure cases now carry a severity: 'failure' (a defect by definition), 'review' (a proxy flag that needs a human look) or 'note' (informational, e.g. retrieval did not abstain but the answer stage correctly declined). Run-1 entries are classified with the same rules for comparison."
+    ]
+  },
+  "report_path": "reports\\evaluation_report.md",
+  "examples": [
+    "q01",
+    "q07",
+    "q15",
+    "q22",
+    "q19",
+    "q26",
+    "q12"
+  ]
+}

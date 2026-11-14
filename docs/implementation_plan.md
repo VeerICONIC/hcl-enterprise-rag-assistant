@@ -15,29 +15,34 @@ Milestones are ordered by dependency. Members work in parallel after M0, and M0 
 - **Exit:** the sample corpus is ingested end-to-end, the Chroma contents are verified against the metadata contract, and re-ingestion is idempotent.
 
 ## M2: Retrieval (M3)
+*Status: implemented 2026-11-14 as BM25 + vector RRF, evidence heuristics, and metadata/heuristic conflict detection (see `docs/PROGRESS.md`). Thresholds still need calibration (M5).*
 - Vector retrieval through `Embedder` and `VectorStore` [mock the store with in-memory fixtures until M1 lands].
 - Reranking (decision recorded in `PROGRESS.md`), score normalization, evidence-strength thresholds.
 - Conflict detection (version/date/value contradictions) with a labelled test fixture.
 - **Exit:** `Retriever.retrieve` meets the contract, with unit tests for ranking, thresholds and conflicts.
 
 ## M3: Generation (M4)
+*Status: implemented 2026-11-14 (offline-tested; the live Nova call is blocked by the AWS account hold).*
 - `BedrockNovaClient` (Converse), prompt templates, structured JSON parsing with repair/retry.
 - Citation validation, excerpt-substring check, fallback logic (`not_found`, `needs_clarification`), conflict presentation.
 - Developed against hand-built `RetrievalResult` fixtures [mock] and a fake `LLMClient` for tests.
 - **Exit:** `AnswerGenerator.generate` meets the contract, and adversarial tests (hallucinated citation IDs, empty evidence, conflicting evidence) pass.
 
 ## M4: Integration (M1 lead)
+*Status: implemented 2026-11-14 (Streamlit pages plus `POST /query`).*
 - `POST /query` wiring (embed → retrieve → generate), latency breakdown, uniform error handling, `/health`.
 - Streamlit frontend (M4): upload, ask, answer with expandable citations/excerpts, a visible conflict panel, a fallback display, and a debug view.
 - **Exit:** the five brief example questions (direct, paraphrase, conflict, unsupported, plus one more) work through the UI.
 
 ## M5: Evaluation and tuning (M4 lead, everyone contributes)
+*Status: framework implemented 2026-11-14; only an offline dry run exists, and the live run is pending AWS access.*
 - Labelled dataset: >= ~30 questions across direct, paraphrase, conflict, ambiguous and unanswerable categories, with construction assumptions documented. Relevance labels are by `chunk_id`.
 - Metrics runner and report (retrieval and answer metrics, failure cases, limitations).
 - Tune chunk size, top-k, thresholds and the reranker against the metrics, and record the results.
 - **Exit:** `reports/eval_report.md` is generated reproducibly.
 
 ## M6: Submission polish (all)
+*Status: README and docs done; live verification pending.*
 - README (setup, supported formats, indexing/retrieval approach, assumptions, trade-offs), the evaluation report, the evidence-backed examples (>= 5), and a demo script.
 - Clean-clone run-through, with no secrets in the repo.
 

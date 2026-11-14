@@ -1,0 +1,11 @@
+Northwind IT Security Policy
+
+Passwords must be at least 12 characters long and must be changed every 90 days. Reusing the last 5 passwords is not allowed.
+
+Multi-factor authentication (MFA) is required for all VPN and email access.
+
+If you forget your password, reset it yourself using the self-service identity portal. The help desk will never ask for your password.
+
+A lost or stolen laptop must be reported to the IT help desk within 24 hours.
+
+USB storage devices are prohibited on company computers.

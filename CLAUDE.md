@@ -8,7 +8,7 @@ HCLTech Future Ready AI Engineer Hackathon, Use Case 2: **Enterprise Documentati
 
 Scope boundary from the brief: the assistant answers and cites. It never modifies source documents or enterprise systems.
 
-**Status:** planning phase, with no application code yet. Read `docs/PROGRESS.md` first in every session and update it before ending a session.
+**Status:** M0 to M6 implemented and offline-tested (431 tests). Live Bedrock works (Titan V2 + Nova Lite via `apac.amazon.nova-lite-v1:0`, `ap-south-1`) and a live evaluation exists; see `docs/PROGRESS.md` for the analysis and the open chunk-size decision. Read `docs/PROGRESS.md` first in every session and update it before ending a session.
 
 ## Documentation map
 
@@ -68,7 +68,20 @@ tests/
 
 ## Commands
 
-None exist yet. Once the scaffold lands, record the real commands here, covering install, run API, run Streamlit, run tests (including a single test), and run evaluation. Do not invent them.
+Windows, venv at `.venv` (Python 3.12). Setup details are in `README.md`.
+
+- Install: `python -m pip install -r requirements-dev.txt`
+- Tests (offline, no AWS): `python -m pytest`, or a single test: `python -m pytest tests/test_config.py::test_defaults`
+- Live Bedrock smoke test (opt-in, billable): `python scripts/test_bedrock.py --all`
+- Run the API: `uvicorn app.api.main:app --port 8000` (routes: `/health`, `/ingest`, `/documents`, `/documents/{doc_id}`, `/query`, `/retrieve`, `/evaluation/latest`)
+- Run the UI: `streamlit run frontend/app.py --server.address localhost --server.port 8501`; or `powershell -ExecutionPolicy Bypass -File scripts\start_api.ps1` / `start_ui.ps1` / `start_all.ps1` / `stop_all.ps1`
+- Evaluation: `python scripts/run_evaluation.py` (offline dry run) or `--live` (billable)
+
+Generation notes: `AnswerGenerator` never calls the LLM without evidence, builds citations only from retrieved chunks, and withholds answers with no valid citation. The Streamlit app talks only to FastAPI (never Bedrock or Chroma directly). Evaluation indexes the synthetic corpus into a temporary store and labels offline runs as non-representative. `.env` sets `AWS_PROFILE=hcl-rag` (profile name only).
+
+Retrieval notes: `Retriever` (`app/retrieval/retriever.py`) fuses vector and BM25 results with RRF and returns the contract's `RetrievalResult`; it never calls an LLM. `POST /retrieve` is a temporary M2 route (the contract's `POST /query` needs M3's `Answer`). Evidence thresholds and conflict heuristics are provisional and uncalibrated. M3 must check `evidence_strength` before using `chunks`.
+
+Ingestion notes: `IngestionService` (`app/ingestion/ingestion_service.py`) holds the pipeline and is independent of FastAPI. Chroma holds extra per-chunk bookkeeping (`content_hash`, `index_fingerprint`, `total_chunks`, `ingested_at`) beside the contract metadata. Embedding is done before the store is touched, so failed re-ingests keep the old version. Details are in `README.md` and `docs/PROGRESS.md`. Add them when those milestones land, and do not invent them. Schemas live in `app/schemas/`, and `app/core/schemas.py` re-exports them.
 
 ## Gotchas to remember
 

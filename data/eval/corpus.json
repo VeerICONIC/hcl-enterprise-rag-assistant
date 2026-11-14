@@ -1,0 +1,10 @@
+[
+  {"filename": "employee_handbook_v1.md", "version": "1.0"},
+  {"filename": "employee_handbook_v2.md", "version": "2.0"},
+  {"filename": "it_security_policy.txt", "version": ""},
+  {"filename": "billing_faq.html", "version": ""},
+  {"filename": "api_guide.pdf", "version": ""},
+  {"filename": "product_release_notes.md", "version": ""},
+  {"filename": "troubleshooting.md", "version": ""},
+  {"filename": "onboarding_guide.md", "version": ""}
+]

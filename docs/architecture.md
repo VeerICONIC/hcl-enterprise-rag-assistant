@@ -88,3 +88,40 @@ Independence rule: `ingestion`, `retrieval` and `generation` import only `app.co
 - **LangChain scope**: use it for orchestration glue (text splitters, prompt templates, Bedrock/Chroma integrations where they do not hide the contract). The module interfaces stay plain pydantic and protocols.
 - **Version extraction**: from document metadata, filename (`v2.1`), or release-note dates. A convention is needed from the dataset.
 - **Document set**: no sample corpus yet. Needs to be supplied or synthesized (including deliberately conflicting docs).
+
+## 6. Retrieval as implemented (M2; the BM25 index is cached per filter and invalidated by the store revision)
+
+Supersedes the proposals in sections 3 and 5 where they differ. Everything here is deterministic and uses no LLM. Details and limits are in `README.md` ("Retrieval") and `docs/PROGRESS.md` ("M2 design decisions").
+
+```
+question -> TitanEmbedder.embed_query -> ChromaStore.query(where)  --+
+        \-> Bm25Retriever (store.get_all_chunks(where), own Okapi BM25) --+-> rrf_fuse (k=60) -> top_k
+             -> missing cosines from stored embeddings -> analyze_evidence -> detect_conflicts -> RetrievalResult
+```
+
+| Step | Module | Notes |
+|---|---|---|
+| Vector candidates | `retrieval/vector_retriever.py`, `ChromaStore.query` | similarity = 1 - Chroma cosine distance |
+| Lexical candidates | `retrieval/bm25_retriever.py` | index rebuilt per query (known limitation) |
+| Fusion | `retrieval/hybrid_ranker.py` | RRF; `score` = rrf / (2/(k+1)); deterministic ties |
+| Evidence | `retrieval/evidence_analyzer.py` | strong / weak / none from cosine vs `MIN_RELEVANCE`, with lexical rescue; provisional thresholds |
+| Conflicts | `retrieval/conflict_detector.py` | version/family metadata + number/date heuristics; descriptions say `METADATA CONFLICT` or `POSSIBLE` |
+| Orchestration | `retrieval/retriever.py` | `Retriever.retrieve(question, top_k, where)`; filters built by `build_where` |
+| HTTP | `api/main.py` | `POST /retrieve` returns `RetrievalResult` (the contract's `/query` waits for M3's `Answer`) |
+
+Resolved from section 5: the reranker is BM25 + vector RRF with no extra model, and conflict detection is metadata + numeric/date heuristics with no LLM pairwise check. Both remain provisional until evaluated in M5. Chunk size and overlap are in characters (1000 / 150), not tokens.
+
+## 7. Generation, API, frontend and evaluation as implemented (M3-M5)
+
+**Generation** (`app/generation/`): `AnswerGenerator.generate(RetrievalResult) -> Answer`. No evidence returns `not_found` without calling the LLM. Otherwise the prompt contains only retrieved chunks addressed as `E1..En`; Nova Lite (Converse) returns JSON with `[E#]` markers. Citations are built **only** from chunk metadata (the excerpt is a verbatim sentence from the chunk). Unknown aliases are removed, claims without a valid citation are dropped, and an answer with no valid citation is withheld as `not_found`. Retrieval conflicts force status `conflict` and travel in `Answer.conflicts`. Malformed JSON gets one repair retry, then `GenerationError` (HTTP 502). Confidence (`high`/`medium`/`low`) is a heuristic label, capped at `low` for weak evidence.
+
+**API** (`app/api/`): `QueryService` = retrieve, then generate. Routes: `/health`, `/ingest`, `/documents`, `/query`, `/retrieve`, `/evaluation/latest`. A lazy `Container` builds the Bedrock and Chroma clients on first use, so importing the app needs no credentials.
+
+**Frontend** (`frontend/`): Streamlit pages call FastAPI through `api_client.py` only.
+
+**Evaluation** (`app/evaluation/`): runs the real `Retriever` (and `AnswerGenerator` in live mode) over a temporary index of the synthetic corpus. Offline mode uses a stand-in embedder and no LLM, and is labelled as such.
+
+```
+Streamlit -> ApiClient -> FastAPI -> QueryService -> Retriever (Titan, Chroma, BM25, RRF, evidence, conflicts)
+                                                  -> AnswerGenerator (Nova Lite, citation validation)
+```
